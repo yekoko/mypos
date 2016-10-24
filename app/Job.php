@@ -12,4 +12,12 @@ class Job extends Model
     {
     	return $this->belongsTo('App\Category');
     }
+    public function experience()
+    {
+    	return $this->belongsTo('App\Experience');
+    }
+    public function company($value='')
+    {
+    	return $this->belongsTo('App\Company');
+    }
 }

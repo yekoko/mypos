@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-Category List
+Industry List
 @stop
 @section('header_styles')
 <!--page level css -->
@@ -12,15 +12,15 @@ Category List
 @stop
 @section('content')
 <section class="content-header">
-    <h1>Category</h1>
+    <h1>Industry</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{route('dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 Dashboard
             </a>
         </li>
-        <li>Category</li>
-        <li class="active">Category</li>
+        <li>Industry</li>
+        <li class="active">Industry</li>
     </ol>
 </section>
 <section class="content">
@@ -29,7 +29,7 @@ Category List
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="list" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        Category List
+                        Industry List
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -37,24 +37,24 @@ Category List
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Category Name</th>
+                                <th>Industry Name</th>
                                 <th>Edit/Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                             @foreach($categories as $key => $category)
+                             @foreach($industries as $key => $industry)
                              <tr>
                                 <td>{{$key+1}}</td>
-                                <td>{{$category->name}}</td>
+                                <td>{{$industry->name}}</td>
                                 <td>
                                     <div class="col-xs-1"> 
-                                        <a href="{{ route('category.edit', $category->id) }}">
+                                        <a href="{{ route('industry.edit', $industry->id) }}">
                                             <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="edit "></i>
                                         </a>
                                     </div>
                                      
                                     <div class="col-xs-1">                          
-                                         <a href="javascript:deleteUser('{{ $category->id }}');">
+                                         <a href="javascript:deleteUser('{{ $industry->id }}');">
                                             <i class="livicon" data-name="remove-alt" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete"></i>
                                          </a>
                                     </div>   
@@ -64,7 +64,7 @@ Category List
                              @endforeach
                         </tbody>
                     </table>
-                    {!! $categories->render() !!}
+                    {!! $industries->render() !!}
                 </div>
             </div>
         </div>
@@ -99,9 +99,9 @@ Category List
         if (confirm('Are you sure want to delete?')) {
         $.ajax({
             type: "DELETE",
-            url: '/admin/category/' + id, //resource
+            url: '/admin/industry/' + id, //resource
             success: function() {
-                    window.location = 'category';
+                    window.location = 'industry';
                  
             }
         });

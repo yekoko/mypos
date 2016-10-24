@@ -53,9 +53,9 @@ Jobs List
                              @foreach($jobs as $key => $job)
                              <tr>
                                 <td>{{$job->title}}</td>
-                                <td></td>
+                                <td>{{$job->company->name}}</td>
                                 <td>{{$job->category->name}}</td>
-                                <td>{{$job->experience_id}}</td>
+                                <td>{{$job->experience->name}}</td>
                                 <td>{{$job->salary}}</td>
                                 <td>{{$job->requirements}}</td>
                                 <td>{{$job->responsibilities}}</td>

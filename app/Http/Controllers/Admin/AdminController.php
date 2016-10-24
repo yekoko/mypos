@@ -193,7 +193,7 @@ class AdminController extends Controller
             'name'               => 'required|unique:users,name',
             'email'              => 'required|email|max:255|unique:users,email',
             'password'           => 'required|min:6',            
-            'phone'              => 'required|numeric|min:8|unique:users,phone',
+            'phone'              => 'required|numeric|min:8',
              
 
         ]);
@@ -210,48 +210,31 @@ class AdminController extends Controller
              
                          
         }
-        if ($file = $request->file('pic'))
-        {
-            $fileName        = $file->getClientOriginalName();
-            $extension       = $file->getClientOriginalExtension() ?: 'png';
-            $folderName      = '/uploads/users/';
-            $destinationPath = public_path() . $folderName;
-            $safeName        = str_random(10).'.'.$extension;
-            $file->move($destinationPath, $safeName);
-        }
+        // if ($file = $request->file('pic'))
+        // {
+        //     $fileName        = $file->getClientOriginalName();
+        //     $extension       = $file->getClientOriginalExtension() ?: 'png';
+        //     $folderName      = '/uploads/users/';
+        //     $destinationPath = public_path() . $folderName;
+        //     $safeName        = str_random(10).'.'.$extension;
+        //     $file->move($destinationPath, $safeName);
+        // }
 
-        $credentials = [   
+         $credentials = [   
             'name'      => $request->name,
             'email'     => $request->email,
             'password'  => $request->password,
             'phone'     => $request->phone,
-            'code'      => mt_rand(100000, 999999),
-            'photo'     => isset($safeName)?$safeName:$request->photo,
+            
         ];
-        DB::beginTransaction();
-        try 
-        {
-            $user = Sentinel::register($credentials);
-            // $role = $request->role ? $request->role : "shipper";
-            //     if($role == "shipper")
-            //     {
-            //         $rolename = Sentinel::findRoleByName($role);
-            //         if($rolename)
-            //             $rolename->users()->attach($user);  
 
-            //         $shipper = new Shipper;
-            //         $shipper->user_id = $user->id;
-            //         $shipper->name = $request->name;
-            //         $shipper->save();
-            //     }
-                     
-             
-        } 
-        catch (Exception $e) 
-        {
-            DB::rollBack();
+        $user = Sentinel::registerAndActivate($credentials,true);
+        $role = Sentinel::findRoleById($request->role);
+         
+        if($role){
+            $role->users()->attach($user);  
         }
-        DB::commit();
+         
         
 
         if ($request->route()->getPrefix() == "/admin") {

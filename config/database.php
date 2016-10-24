@@ -62,7 +62,7 @@ return [
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
-            'strict' => true,
+            'strict' => false,
             'engine' => null,
             'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
         ],

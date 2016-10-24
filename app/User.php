@@ -22,12 +22,7 @@ class User extends \Cartalyst\Sentinel\Users\EloquentUser
         'password', 'remember_token','pivot',
     ];
 
-    protected $loginNames = ['email','phone'];
-
-    public function delivery_staff()
-    {
-        return $this->hasMany('App\Delivery_staff');
-    }
+     
       
 
 

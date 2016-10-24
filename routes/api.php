@@ -16,4 +16,7 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
-Route::resource('job','Admin\JobController');
+Route::resource('jobs','Admin\JobController');
+Route::resource('companies','Admin\CompanyController');
+Route::get('register','Admin\AdminController@getRegister');
+Route::post('register','Admin\AdminController@postRegister');

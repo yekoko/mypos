@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-Category List
+Company List
 @stop
 @section('header_styles')
 <!--page level css -->
@@ -12,15 +12,15 @@ Category List
 @stop
 @section('content')
 <section class="content-header">
-    <h1>Category</h1>
+    <h1>Company</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{route('dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 Dashboard
             </a>
         </li>
-        <li>Category</li>
-        <li class="active">Category</li>
+        <li>Company</li>
+        <li class="active">Company</li>
     </ol>
 </section>
 <section class="content">
@@ -29,32 +29,48 @@ Category List
             <div class="panel panel-primary ">
                 <div class="panel-heading clearfix">
                     <h4 class="panel-title pull-left"> <i class="livicon" data-name="list" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        Category List
+                        Company List
                     </h4>
                 </div>
                 <div class="panel-body">
                     <table class="table table-bordered" id="sample_editable_1">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>Category Name</th>
+                                <th>logo</th>
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Phone</th>
+                                <th>Company Size</th>                                
+                                <th>Reg No</th>
+                                <th>Website Link</th>
+                                <th>Working Hours</th>
+                                <th>Industry</th>
+                                <th>Overview</th>
                                 <th>Edit/Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                             @foreach($categories as $key => $category)
+                             @foreach($companies as $key => $company)
                              <tr>
-                                <td>{{$key+1}}</td>
-                                <td>{{$category->name}}</td>
+                                <td><img src="../uploads/logos/{{$company->image}}" alt=""></td>
+                                <td>{{$company->name}}</td>
+                                <td>{{$company->address}}</td>
+                                <td>{{$company->phone}}</td>
+                                <td>{{$company->company_size}}</td>
+                                <td>{{$company->registration_no}}</td>
+                                <td>{{$company->website}}</td>
+                                <td>{{$company->working_hours}}</td>
+                                <td>{{$company->industry_id}}</td>
+                                <td>{{$company->overview}}</td>
                                 <td>
                                     <div class="col-xs-1"> 
-                                        <a href="{{ route('category.edit', $category->id) }}">
+                                        <a href="{{ route('company.edit', $company->id) }}">
                                             <i class="livicon" data-name="edit" data-size="18" data-loop="true" data-c="#428BCA" data-hc="#428BCA" title="edit "></i>
                                         </a>
                                     </div>
                                      
                                     <div class="col-xs-1">                          
-                                         <a href="javascript:deleteUser('{{ $category->id }}');">
+                                         <a href="javascript:deleteUser('{{ $company->id }}');">
                                             <i class="livicon" data-name="remove-alt" data-size="18" data-loop="true" data-c="#f56954" data-hc="#f56954" title="delete"></i>
                                          </a>
                                     </div>   
@@ -64,7 +80,7 @@ Category List
                              @endforeach
                         </tbody>
                     </table>
-                    {!! $categories->render() !!}
+                    {!! $companies->render() !!}
                 </div>
             </div>
         </div>
@@ -99,9 +115,9 @@ Category List
         if (confirm('Are you sure want to delete?')) {
         $.ajax({
             type: "DELETE",
-            url: '/admin/category/' + id, //resource
+            url: '/admin/company/' + id, //resource
             success: function() {
-                    window.location = 'category';
+                    window.location = 'company';
                  
             }
         });

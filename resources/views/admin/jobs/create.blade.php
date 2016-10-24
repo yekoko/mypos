@@ -4,9 +4,10 @@ Create Job
 @stop
 @section('header_styles')
 <!--page level css -->
-<link rel="stylesheet" href="{{ asset('assets/vendors/wizard/jquery-steps/css/wizard.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/datepicker.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/vendors/wizard/jquery-steps/css/jquery.steps.css') }}">
 <link href="{{ asset('assets/vendors/jasny-bootstrap/css/jasny-bootstrap.css') }}" rel="stylesheet" />
+<link rel="stylesheet" href="{{ asset('assets/vendors/wizard/jquery-steps/css/wizard.css') }}">
 <!--end of page level css-->
 @stop
 
@@ -41,11 +42,23 @@ Create Job
                         {{ csrf_field() }}
 							 <p>
 								<label for="title" class="control-label">Title</label>
-								<input type="text" name="title" class="form-control" placeholder="Web Developer (PHP)" />
+								<input type="text" name="title" class="form-control" />
 								<div class="errors">
 									{{ $errors->first('title') }}	
 								</div>	 			
 							 </p>
+                             <p>
+                                 <label for="company" class="control-label">Company</label>                                
+                                <select class="form-control" name="company">
+                                    <option value="">Select Company</option>
+                                    @foreach($companies as $company)    
+                                        <option value={{ $company->id }}>{{$company->name}}</option>
+                                    @endforeach        
+                                </select>
+                                <div class="errors">
+                                    {{ $errors->first('company') }}    
+                                </div>  
+                             </p>
                              <p>
                                  <label for="category" class="control-label">Category</label>                                
                                 <select class="form-control" name="category">
@@ -71,10 +84,17 @@ Create Job
                                 </div>  
                              </p>
                              <p>
-                                <label for="salary" class="control-label">Salary</label>
-                                <input type="text" name="salary" class="form-control" placeholder="200000-400000" />
+                                <label for="min_salary" class="control-label">Min Salary</label>
+                                <input type="text" name="min_salary" class="form-control" />
                                 <div class="errors">
-                                    {{ $errors->first('salary') }}   
+                                    {{ $errors->first('min_salary') }}   
+                                </div>              
+                             </p>
+                             <p>
+                                <label for="max_salary" class="control-label">Max Salary</label>
+                                <input type="text" name="max_salary" class="form-control" />
+                                <div class="errors">
+                                    {{ $errors->first('max_salary') }}   
                                 </div>              
                              </p>
                              <p>
@@ -100,24 +120,36 @@ Create Job
                              </p>
                              <p>
                                 <label for="email" class="control-label">Email</label>
-                                <input type="text" name="email" class="form-control" placeholder="myemail@gmail.com" />
+                                <input type="text" name="email" class="form-control" />
                                 <div class="errors">
                                     {{ $errors->first('email') }}   
                                 </div>              
                              </p>
                              <p>
                                 <label for="phone" class="control-label">Phone No</label>
-                                <input type="text" name="phone" class="form-control" placeholder="09799999999,01525252" />
+                                <input type="text" name="phone" class="form-control" />
                                 <div class="errors">
                                     {{ $errors->first('phone') }}   
                                 </div>              
                              </p>
                              <p>
                                 <label for="address" class="control-label">Address</label>
-                                <input type="text" name="address" class="form-control" placeholder="no,11,Main Street,Hlaing Township" />
+                                <input type="text" name="address" class="form-control"  />
                                 <div class="errors">
                                     {{ $errors->first('address') }}   
                                 </div>              
+                             </p>
+                             <p>
+                             <label for="end_date" class="control-label">End Date</label>
+                                <div class="input-group date" id="dtp">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                    <input type="text" name="end_date" class="form-control" />
+                                </div>    
+                                <div class="errors">
+                                    {{ $errors->first('end_date') }}   
+                                </div>    
                              </p>
 							<button type="submit" class="btn btn-primary">Create</button>
 							<a class="btn btn-primary" href="{{ route('job.index') }}">Cancel</a>
@@ -130,7 +162,15 @@ Create Job
 </section> 
 @stop
 @section('footer_scripts')
+    <script type="text/javascript">
+        $(function (){
+            $('#dtp').datepicker({
+                format: 'dd-mm-yyyy'
+            });
+        });
+    </script>
     <script type="text/javascript" src="{{ asset('assets/vendors/wizard/jquery-steps/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('assets/vendors/wizard/jquery-steps/js/jquery.steps.js') }}"></script>
     <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
     <script src="{{ asset('assets/js/pages/form_wizard.js') }}"></script>

@@ -1,6 +1,6 @@
 @extends('admin.layout.default')
 @section('title')
-Create Category
+Create Industry
 @stop
 @section('header_styles')
 <!--page level css -->
@@ -12,15 +12,15 @@ Create Category
 
 @section('content')
 <section class="content-header">
-    <h1>Category</h1>
+    <h1>Industry</h1>
     <ol class="breadcrumb">
         <li>
             <a href="{{route('dashboard') }}"> <i class="livicon" data-name="home" data-size="16" data-color="#000"></i>
                 Dashboard
             </a>
         </li>
-        <li>Category</li>
-        <li class="active">Create Category</li>
+        <li>Industry</li>
+        <li class="active">Create Industry</li>
     </ol>
 </section>
 <section class="content">
@@ -29,7 +29,7 @@ Create Category
             <div class="panel panel-primary ">
                 <div class="panel-heading">
                     <h4 class="panel-title"> <i class="livicon" data-name="users-add" data-size="16" data-loop="true" data-c="#fff" data-hc="white"></i>
-                        Create Category
+                        Create Industry
                     </h4>
                 </div>
                 <div class="panel-body">
@@ -37,7 +37,7 @@ Create Category
 						 {{ $errors->first('message') }}
 					</div>
 					<div class="col-md-6 col-md-offset-3">
-						<form class="form-horizontal"  action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
+						<form class="form-horizontal"  action="{{ route('industry.store') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
 							 <p>
 								<label for="name" class="control-label">name</label>
@@ -47,7 +47,7 @@ Create Category
 								</div>	 			
 							 </p>
 							<button type="submit" class="btn btn-primary">Create</button>
-							<a class="btn btn-primary" href="{{ route('category.index') }}">Cancel</a>
+							<a class="btn btn-primary" href="{{ route('industry.index') }}">Cancel</a>
 						</form>
 					</div>
                 </div>

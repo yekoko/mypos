@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Job;
 use App\Experience;
 use App\Category;
+use App\Company;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -19,13 +20,16 @@ class JobController extends Controller
      */
     public function index(Request $request)
     {
-        $jobs = Job::with('category')->paginate();
-        //dd($request->route()->getPrefix());
+        
         if ($request->route()->getPrefix() == "api") {
-            return response()->json(['job'=>$jobs]);
+            $jobs = Job::with('category','experience','company')->get();
+            return response()->json(['jobs'=>$jobs]);
+        }else{
+            $jobs = Job::with('category','experience')->paginate(10);
+            return view('admin.jobs.index',compact('jobs'));
         }
-        //return response()->json(['job'=>$jobs]);
-        return view('admin.jobs.index',compact('jobs'));
+         
+        
     }
 
     /**
@@ -37,7 +41,8 @@ class JobController extends Controller
     {
         $categories = Category::all();
         $experiences = Experience::all();
-        return view('admin.jobs.create',compact('categories','experiences'));
+        $companies = Company::all();
+        return view('admin.jobs.create',compact('categories','experiences','companies'));
     }
 
     /**
@@ -59,6 +64,7 @@ class JobController extends Controller
             'email'              => 'required|email',
             'phone'              => 'required',
             'address'            => 'required',
+            'end_date'           => 'required',
 
              
         ]);
@@ -88,9 +94,11 @@ class JobController extends Controller
                 return response()->json($validator->errors()->first('phone'), 400);
             if($validator->errors()->has('address'))
                 return response()->json($validator->errors()->first('address'), 400);
+            if($validator->errors()->has('end_date'))
+                return response()->json($validator->errors()->first('end_date'), 400);
 
         }
-
+        $end_date = date("Y-m-d",strtotime($request->end_date));
         $job = new Job;
         $job->title = $request->title;
         $job->company_id = 1 ;
@@ -103,7 +111,7 @@ class JobController extends Controller
         $job->email = $request->email;
         $job->phone_no = $request->phone;
         $job->address = $request->address;
-        $job->end_date = "2016-09-21 06:36:27";
+        $job->end_date = $end_date;
         $job->save(); 
 
         return redirect()->route('job.index');
@@ -117,7 +125,8 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        //
+        $job = Job::with('category','experience')->find($id);
+        return response()->json($job);
     }
 
     /**

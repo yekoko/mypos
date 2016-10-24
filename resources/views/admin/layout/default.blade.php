@@ -230,6 +230,28 @@
                                  
                             </ul>
                         </li>
+                        <li {!! (Request::is('admin/industry') || Request::is('admin/industry/*') ? 'class="active"' : '') !!}>
+                            <a href="#">
+                                <i class="livicon" data-name="users" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
+                                <span class="title">Industry</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li {!! (Request::is('admin/industry') ? 'class="active"' : '') !!}>
+                                    <a href="{!! URL::to('admin/industry') !!}">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Industry
+                                    </a>
+                                </li>
+                                <li {!! (Request::is('admin/industry/create') ? 'class="active"' : '') !!}>
+                                    <a href="{!! URL::to('admin/industry/create') !!}">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Add New Industry
+                                    </a>
+                                </li>
+                                 
+                            </ul>
+                        </li>
                         <li {!! (Request::is('admin/job') || Request::is('admin/job/*') ? 'class="active"' : '') !!}>
                             <a href="#">
                                 <i class="livicon" data-name="users" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
