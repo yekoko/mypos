@@ -15,10 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('ph', function () {
-    return bcrypt('naruton5');
-});
-
 Route::group(['prefix' => 'admin'], function () {
 	 
  
