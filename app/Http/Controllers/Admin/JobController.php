@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Job;
 use App\Experience;
@@ -18,18 +19,10 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        
-        if ($request->route()->getPrefix() == "api") {
-            $jobs = Job::with('category','experience','company')->get();
-            return response()->json(['jobs'=>$jobs]);
-        }else{
-            $jobs = Job::with('category','experience')->paginate(10);
-            return view('admin.jobs.index',compact('jobs'));
-        }
-         
-        
+        $jobs = Job::with('category','experience')->paginate(10);
+        return view('admin.jobs.index',compact('jobs'));
     }
 
     /**

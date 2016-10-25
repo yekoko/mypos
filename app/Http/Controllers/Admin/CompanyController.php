@@ -19,7 +19,6 @@ class CompanyController extends Controller
     public function index()
     {
         $companies = Company::paginate();
-        //return response()->json(['companies'=>$companies]);
         return view('admin.companies.index',compact('companies'));
     }
 
