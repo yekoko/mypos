@@ -50,7 +50,8 @@ class JobController extends Controller
             'title'              => 'required',
             'category'           => 'required',
             'experience'         => 'required',
-            'salary'             => 'required',
+            'min_salary'         => 'required',
+            'max_salary'         => 'required',
             'requirement'        => 'required',
             'responsibilities'   => 'required',
             'description'        => 'required',
@@ -58,9 +59,8 @@ class JobController extends Controller
             'phone'              => 'required',
             'address'            => 'required',
             'end_date'           => 'required',
-
-             
         ]);
+
         if ($validator->fails()) {
             if ($request->route()->getPrefix() == "/admin") {
                 return redirect()->back()
@@ -73,8 +73,10 @@ class JobController extends Controller
                 return response()->json($validator->errors()->first('category'), 400);
             if($validator->errors()->has('experience'))
                 return response()->json($validator->errors()->first('experience'), 400);   
-            if($validator->errors()->has('salary'))
-                return response()->json($validator->errors()->first('salary'), 400);
+            if($validator->errors()->has('min_salary'))
+                return response()->json($validator->errors()->first('min_salary'), 400);
+            if($validator->errors()->has('max_salary'))
+                return response()->json($validator->errors()->first('max_salary'), 400);
             if($validator->errors()->has('requirement'))
                 return response()->json($validator->errors()->first('requirement'), 400);
             if($validator->errors()->has('responsibilities'))
@@ -91,13 +93,15 @@ class JobController extends Controller
                 return response()->json($validator->errors()->first('end_date'), 400);
 
         }
+
         $end_date = date("Y-m-d",strtotime($request->end_date));
         $job = new Job;
         $job->title = $request->title;
-        $job->company_id = 1 ;
+        $job->company_id = $request->company;
         $job->category_id = $request->category;
         $job->experience_id = $request->experience;
-        $job->salary = $request->salary;
+        $job->min_salary = $request->min_salary;
+        $job->max_salary = $request->max_salary;
         $job->requirements = $request->requirement;
         $job->responsibilities = $request->responsibilities;
         $job->description = $request->description;

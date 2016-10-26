@@ -18,13 +18,13 @@ class ApiController extends Controller
     {
         $time = $request->input('t')/1000;
 
-        $jobs = Job::where('end_date','>', Carbon::now()->toDateString())
+        $jobs = Job::where('end_date','>', date('Y-m-d'))
             ->where(function ($query) use ($time){
                 $query->orWhere('created_at', '>', date("Y-m-d H:i:s", $time))
                     ->orWhere('updated_at', '>', date("Y-m-d H:i:s", $time));
             })
-            ->get()
-            ->makeHidden(['created_at', 'updated_at']);
+            ->get();
+            
 
         return response()->json(['jobs'=>$jobs]);
     }
@@ -32,7 +32,7 @@ class ApiController extends Controller
     public function getCompanies()
     {
         $companies = Company::leftJoin('jobs', 'jobs.company_id', '=', 'companies.id')
-                        ->where('jobs.end_date','>', Carbon::now()->toDateString())
+                        ->where('jobs.end_date','>', date('Y-m-d'))
                         ->get([
                             'companies.id as company_id', 'companies.user_id', 'companies.name as company_name', 'companies.address as company_address',
                             'companies.phone as company_phone', 'companies.company_size', 'companies.image as company_image',
@@ -46,7 +46,7 @@ class ApiController extends Controller
     public function getExperiences()
     {
         $experiences = Experience::leftJoin('jobs', 'jobs.experience_id', '=', 'experiences.id')
-                            ->where('jobs.end_date','>', Carbon::now()->toDateString())
+                            ->where('jobs.end_date','>', date('Y-m-d'))
                             ->get(['experiences.id as experience_id', 'experiences.name as experience_name']);
 
         return response()->json([ 'experiences' => $experiences ]);
@@ -55,7 +55,7 @@ class ApiController extends Controller
     public function getCategories()
     {
         $categories = Category::leftJoin('jobs', 'jobs.category_id', '=', 'categories.id')
-            ->where('jobs.end_date','>', Carbon::now()->toDateString())
+            ->where('jobs.end_date','>', date('Y-m-d'))
             ->get(['categories.id as category_id', 'categories.name as category_name']);
 
         return response()->json([ 'categories' => $categories ]);
