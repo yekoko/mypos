@@ -32,6 +32,7 @@ class ApiController extends Controller
     public function getCompanies()
     {
         $companies = Company::leftJoin('jobs', 'jobs.company_id', '=', 'companies.id')
+                        ->groupBy('companies.id')
                         ->where('jobs.end_date','>', Carbon::now()->toDateString())
                         ->get([
                             'companies.id as company_id', 'companies.user_id', 'companies.name as company_name', 'companies.address as company_address',
@@ -46,6 +47,7 @@ class ApiController extends Controller
     public function getExperiences()
     {
         $experiences = Experience::leftJoin('jobs', 'jobs.experience_id', '=', 'experiences.id')
+                            ->groupBy('experiences.id')
                             ->where('jobs.end_date','>', Carbon::now()->toDateString())
                             ->get(['experiences.id as experience_id', 'experiences.name as experience_name']);
 
@@ -55,8 +57,9 @@ class ApiController extends Controller
     public function getCategories()
     {
         $categories = Category::leftJoin('jobs', 'jobs.category_id', '=', 'categories.id')
-            ->where('jobs.end_date','>', Carbon::now()->toDateString())
-            ->get(['categories.id as category_id', 'categories.name as category_name']);
+                            ->groupBy('categories.id')
+                            ->where('jobs.end_date','>', Carbon::now()->toDateString())
+                            ->get(['categories.id as category_id', 'categories.name as category_name']);
 
         return response()->json([ 'categories' => $categories ]);
     }
