@@ -32,7 +32,7 @@ Route::group(['prefix' => 'admin'], function () {
      
 	//Route::get('',['as' => 'dashboard', 'uses' =>'Admin\HomeController@getIndex']);
 	
-
+    Route::resource('job','Admin\JobController');
 	Route::group(['middleware' => ['sentinel.admin']], function () {
 		Route::get('/dashboard', ['as' => 'dashboard','uses' => 'Admin\HomeController@getIndex']);
 		Route::group(['middleware' => ['role.admin']], function () {
@@ -42,7 +42,7 @@ Route::group(['prefix' => 'admin'], function () {
 			Route::resource('role','Admin\RoleController');
 			Route::resource('category','Admin\CategoryController');
 			Route::resource('experience','Admin\ExperienceController');
-			Route::resource('job','Admin\JobController');
+			
 			Route::resource('company','Admin\CompanyController');
 			Route::resource('industry','Admin\IndustryController');
 		});

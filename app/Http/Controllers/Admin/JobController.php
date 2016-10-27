@@ -8,6 +8,7 @@ use App\Job;
 use App\Experience;
 use App\Category;
 use App\Company;
+use Sentinel;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -21,7 +22,13 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::with('category','experience')->paginate(10);
+        $user = Sentinel::getUser();
+        if($user->inRole('admin')){
+            $jobs = Job::with('category','experience')->paginate(10);
+        }else{
+            $companyid = Company::where('user_id',$user->id)->value('id');
+            $jobs = Job::with('category','experience')->where('company_id',$companyid)->paginate(10);
+        }
         return view('admin.jobs.index',compact('jobs'));
     }
 
@@ -34,7 +41,13 @@ class JobController extends Controller
     {
         $categories = Category::all();
         $experiences = Experience::all();
-        $companies = Company::all();
+        $user = Sentinel::getUser();
+        if($user->inRole('admin')){
+            $companies = Company::all();
+        }else{
+            $companies = Company::where('user_id',$user->id)->get();
+        }
+        
         return view('admin.jobs.create',compact('categories','experiences','companies'));
     }
 

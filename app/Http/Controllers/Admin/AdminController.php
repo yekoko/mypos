@@ -143,7 +143,10 @@ class AdminController extends Controller
                  }  
                  return response()->json($message);
              }
-            
+            if($user->inRole('user')){
+                $message = "You are not allow for Admin Panel!";
+                return redirect()->back()->withErrors(array('message' => $message));
+            }
             if(Sentinel::authenticate($credentials))
             {                  
                 // Redirect to the dashboard page if prefix is admin

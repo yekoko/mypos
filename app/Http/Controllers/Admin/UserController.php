@@ -89,7 +89,7 @@ class UserController extends Controller
             'email'     => $request->email,
             'password'  => $request->password,
             'phone'     => $request->phone,
-            'photo'     => $request->photo,
+             
              
         ];
 
@@ -100,7 +100,7 @@ class UserController extends Controller
             $role->users()->attach($user);  
         }
          
-        return redirect()->route('admin.user.index');
+        return redirect()->route('user.index');
          
 
     }

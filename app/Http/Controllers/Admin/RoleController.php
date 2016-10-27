@@ -62,7 +62,7 @@ class RoleController extends Controller
         $role->slug = $request->slug;
         $role->save();
 
-        return redirect()->route('admin.role.index');
+        return redirect()->route('role.index');
     }
 
     /**
@@ -118,7 +118,7 @@ class RoleController extends Controller
         $role->slug = $request->slug;
 
         $role->update();
-        return redirect()->route('admin.role.index');
+        return redirect()->route('role.index');
     }
 
     /**

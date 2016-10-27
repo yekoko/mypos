@@ -16,12 +16,13 @@ use Illuminate\Http\Request;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
+Route::group(['prefix' => 'v1'], function(){
+	Route::get('jobs','Api\ApiController@getJobs');
+	Route::get('companies','Api\ApiController@getCompanies');
+	Route::get('experiences','Api\ApiController@getExperiences');
+	Route::get('categories','Api\ApiController@getCategories');
 
-Route::get('jobs','Api\ApiController@getJobs');
-Route::get('companies','Api\ApiController@getCompanies');
-Route::get('experiences','Api\ApiController@getExperiences');
-Route::get('categories','Api\ApiController@getCategories');
 
-
-Route::get('register','Admin\AdminController@getRegister');
-Route::post('register','Admin\AdminController@postRegister');
+	Route::get('register','Admin\AdminController@getRegister');
+	Route::post('register','Admin\AdminController@postRegister');
+});
