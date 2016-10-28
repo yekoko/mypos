@@ -42,7 +42,6 @@ Route::group(['prefix' => 'admin'], function () {
 			Route::resource('role','Admin\RoleController');
 			Route::resource('category','Admin\CategoryController');
 			Route::resource('experience','Admin\ExperienceController');
-			
 			Route::resource('company','Admin\CompanyController');
 			Route::resource('industry','Admin\IndustryController');
 		});
