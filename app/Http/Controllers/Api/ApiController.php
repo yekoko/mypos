@@ -21,10 +21,6 @@ class ApiController extends Controller
 
         $jobs = Cache::tags('jobs')->remember('jobs_' . $time, 7200, function () use ($time) {
             return Job::where('end_date','>', date('Y-m-d'))
-                ->where(function ($query) use ($time){
-                    $query->orWhere('created_at', '>', date("Y-m-d H:i:s", $time))
-                        ->orWhere('updated_at', '>', date("Y-m-d H:i:s", $time));
-                })
                 ->get();
         });
 
