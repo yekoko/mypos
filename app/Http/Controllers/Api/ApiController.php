@@ -41,7 +41,7 @@ class ApiController extends Controller
                     'companies.id as company_id', 'companies.user_id', 'companies.name as company_name', 'companies.address as company_address',
                     'companies.phone as company_phone', 'companies.company_size', 'companies.image as company_image',
                     'companies.registration_no as company_reg_no', 'companies.website as company_website', 'companies.working_hours as company_working_hours',
-                    'companies.industry_id as company_industry_id', 'companies.overview as company_overview'
+                    'companies.industry_id as company_industry_id', 'companies.overview as company_overview', 'companies.updated_at'
                 ]);
         });
 
@@ -54,7 +54,7 @@ class ApiController extends Controller
             return Experience::leftJoin('jobs', 'jobs.experience_id', '=', 'experiences.id')
                 ->groupBy('experiences.id')
                 ->where('jobs.end_date','>', Carbon::now()->toDateString())
-                ->get(['experiences.id as experience_id', 'experiences.name as experience_name']);
+                ->get(['experiences.id as experience_id', 'experiences.name as experience_name', 'experiences.updated_at']);
         });
 
         return response()->json([ 'experiences' => $experiences ]);
@@ -66,7 +66,7 @@ class ApiController extends Controller
             return $categories = Category::leftJoin('jobs', 'jobs.category_id', '=', 'categories.id')
                 ->groupBy('categories.id')
                 ->where('jobs.end_date','>', Carbon::now()->toDateString())
-                ->get(['categories.id as category_id', 'categories.name as category_name']);
+                ->get(['categories.id as category_id', 'categories.name as category_name', 'categories.updated_at']);
         });
 
         return response()->json([ 'categories' => $categories ]);
