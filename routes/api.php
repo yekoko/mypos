@@ -21,8 +21,7 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::get('companies','Api\ApiController@getCompanies');
 	Route::get('experiences','Api\ApiController@getExperiences');
 	Route::get('categories','Api\ApiController@getCategories');
-
-
 	Route::get('register','Admin\AdminController@getRegister');
 	Route::post('register','Admin\AdminController@postRegister');
+	Route::post('login','Admin\AdminController@postLogin');
 });

@@ -76,10 +76,7 @@ class AdminController extends Controller
             if($user = Sentinel::authenticate($credentials))
             {   
                 $user = User::with('roles')->whereid($user->id)->first();
-                $staff = Delivery_staff::where('user_id',$user->id)->first();
-
-                $user['staff']=$staff;
-
+                
                 return response()->json($user);
             }
             $message = 'Invalid Username or Password';

@@ -141,7 +141,6 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name'              => 'required',
             'email'             => 'required|email',
-            'old_password'      => 'required',
             'phone'             => 'required',                          
         ]);
 
@@ -155,31 +154,22 @@ class UserController extends Controller
                 return response()->json($validator->errors()->first('name'), 400);
             if($validator->errors()->has('email'))
                 return response()->json($validator->errors()->first('email'), 400);
-            if($validator->errors()->has('old_password'))
-                return response()->json($validator->errors()->first('old-password'), 400); 
             if($validator->errors()->has('phone'))
                 return response()->json($validator->errors()->first('phone'), 400);                              
         }
         
-        $credentials = [
-            'email'     => $request->email,
-            'password'  => $request->old_password,
-        ];
-        if (Sentinel::authenticate($credentials)) {
-            $user = Sentinel::findById($id);
-             
-            Sentinel::update($user, array(
-                'name'     => $request->name,
-                'password' => $request->new_password ? $request->new_password : $request->old_password,
-                'phone'    => $request->phone,
-                'photo'    => $request->photo,
-            ));
-	    $user = User::with('roles')->whereid($user->id)->first();
-             
-            return response()->json($user);
-        }else{
-            return response()->json('Sorry! Invalid Email or Password',400);
-        }
+        
+        $user = Sentinel::findById($id);
+         
+        Sentinel::update($user, array(
+            'name'     => $request->name,
+            'phone'    => $request->phone,
+            'photo'    => $request->photo,
+        ));
+        $user = User::with('roles')->whereid($user->id)->first();
+         
+        return response()->json($user);
+        
     }
 
     /**
