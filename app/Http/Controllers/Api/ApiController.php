@@ -74,7 +74,7 @@ class ApiController extends Controller
     }
     public function getUserexperience($id)
     {
-        $user = User_Experience::whereuser_id($id)->get();
+        $user = User_Experience::with('industry')->whereuser_id($id)->get();
         return response()->json($user);
     }
     public function postUserexperience(Request $request)
