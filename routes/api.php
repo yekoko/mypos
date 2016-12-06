@@ -24,4 +24,6 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::get('register','Admin\AdminController@getRegister');
 	Route::post('register','Admin\AdminController@postRegister');
 	Route::post('login','Admin\AdminController@postLogin');
+	Route::post('user_experience','Api\ApiController@postUserexperience');
+	Route::get('user_experience/{id}','Api\ApiController@getUserexperience');
 });
