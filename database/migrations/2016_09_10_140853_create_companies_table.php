@@ -24,6 +24,8 @@ class CreateCompaniesTable extends Migration
             $table->string('working_hours');
             $table->integer('industry_id');
             $table->string('overview');
+            $table->double('latitude', 15, 8);
+            $table->double('longitude', 15, 8);
             $table->timestamps();
         });
     }

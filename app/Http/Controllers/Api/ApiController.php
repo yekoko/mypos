@@ -41,7 +41,7 @@ class ApiController extends Controller
                     'companies.id', 'companies.user_id', 'companies.name', 'companies.address',
                     'companies.phone', 'companies.company_size', 'companies.image',
                     'companies.registration_no', 'companies.website', 'companies.working_hours',
-                    'companies.industry_id', 'companies.overview', 'companies.updated_at'
+                    'companies.industry_id', 'companies.overview', 'companies.latitude', 'companies.longitude', 'companies.updated_at'
                 ]);
         });
 
