@@ -7,6 +7,7 @@ use App\Company;
 use App\Experience;
 use App\Http\Controllers\Controller;
 use App\Job;
+use App\Industry;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User_Experience;
@@ -110,5 +111,11 @@ class ApiController extends Controller
         $experience->position_level     = $request->position_level;
         $experience->save();
 
+    }
+
+    public function getIndustries()
+    {
+        $industries = Industry::orderBy('id','desc')->get();
+        return response()->json(['industries'=>$industries]);
     }
 }
