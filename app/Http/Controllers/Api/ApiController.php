@@ -11,9 +11,13 @@ use App\Industry;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\User_Experience;
+use App\User;
+use App\Saved_Job;
+use App\Qualification;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Cache;
 use Validator;
+use Illuminate\Validation\Rule;
 
 class ApiController extends Controller
 {
@@ -117,5 +121,65 @@ class ApiController extends Controller
     {
         $industries = Industry::orderBy('id','desc')->get();
         return response()->json(['industries'=>$industries]);
+    }
+
+    public function editUser($id,Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email'       => ['required',Rule::unique('users')->ignore($id)],
+        ]);
+
+        if ($validator->fails()) {
+            if($validator->errors()->has('email'))
+                return response()->json($validator->errors()->first('email'), 400);        
+        }
+        $user = User::find($id);
+        $user->name          = $request->name;
+        $user->email         = $request->email;
+        $user->address       = $request->address;
+        $user->phone         = $request->phone;
+        $user->date_of_birth = $request->date_of_birth;
+        $user->nationality   = $request->nationality;
+        $user->religion      = $request->religion;
+        $user->race          = $request->race;
+        $user->gender        = $request->gender;
+        $user->marital_status= $request->marital_status;
+        $user->update();
+
+    }
+
+    public function getSavedjobs($user_id)
+    {
+        $saved_jobs = Saved_Job::with('job')->where('user_id',$user_id)->get();
+        return response()->json(['saved_jobs'=>$saved_jobs]);
+    }
+
+    public function postSavedjobs(Request $request)
+    {
+        $jobs = Saved_Job::where('user_id',$request->user_id)->where('job_id',$request->job_id)->first();
+        if ($jobs) {
+            $jobs->delete();
+        }
+        else{
+            $saved_jobs = new Saved_Job;
+            $saved_jobs->user_id = $request->user_id;
+            $saved_jobs->job_id  = $request->job_id;
+            $saved_jobs->save();
+        }
+        
+
+        return response()->json("Successful");
+    }
+
+    public function getSavedjobscount($user_id){
+        $saved_jobs = Saved_Job::where('user_id',$user_id)->get();
+        return response()->json(['count'=>['saved_jobs'=>count($saved_jobs),"apply_jobs"=>0]]);
+
+    }
+
+    public function getQualification()
+    {
+        $qualifications = Qualification::orderBy('id','desc')->get();
+        return response()->json(["qualifications" => $qualifications]);
     }
 }

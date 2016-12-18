@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Industry extends Model
+class Qualification extends Model
 {
-    protected $table = 'industries';
+    protected $table = "qualifications";
+
     protected $hidden = [
         'created_at', 'updated_at'
     ];
