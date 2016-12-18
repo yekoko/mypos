@@ -32,4 +32,6 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::post('save_jobs','Api\ApiController@postSavedjobs');
 	Route::get('save_jobs_count/{id}','Api\ApiController@getSavedjobscount');
 	Route::get('qualifications',"Api\ApiController@getQualification");
+	Route::get('educations/{id}','Api\ApiController@getEducation');
+	Route::post('educations','Api\ApiController@postEducation');
 });

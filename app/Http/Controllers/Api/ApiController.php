@@ -15,6 +15,7 @@ use App\User;
 use App\Saved_Job;
 use App\Qualification;
 use App\Http\Requests;
+use App\Education;
 use Illuminate\Support\Facades\Cache;
 use Validator;
 use Illuminate\Validation\Rule;
@@ -181,5 +182,46 @@ class ApiController extends Controller
     {
         $qualifications = Qualification::orderBy('id','desc')->get();
         return response()->json(["qualifications" => $qualifications]);
+    }
+
+    public function getEducation($user_id)
+    {
+        $education = Education::with('qualification')->where('user_id',$user_id)->get();
+
+        return response()->json(["educations"=>$education]);
+    }
+
+    public function postEducation()
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id'           => 'required',
+            'university'        => 'required',
+            'qualification_id'  => 'required',
+            'graduation_date'   => 'required',
+            'major'             => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            if($validator->errors()->has('user_id'))
+                return response()->json($validator->errors()->first('user_id'), 400);
+            if($validator->errors()->has('university'))
+                return response()->json($validator->errors()->first('university'), 400);
+            if($validator->errors()->has('qualification_id'))
+                return response()->json($validator->errors()->first('qualification_id'), 400);
+            if($validator->errors()->has('graduation_date'))
+                return response()->json($validator->errors()->first('graduation_date'), 400);
+            if($validator->errors()->has('major'))
+                return response()->json($validator->errors()->first('major'), 400);           
+        }
+
+        $education = new Education;
+        $education->user_id            = $request->user_id;
+        $education->university         = $request->university;
+        $education->qualification_id   = $request->qualification_id;
+        $education->graduation_date    = $request->graduation_date;
+        $education->major              = $request->major;
+        $education->save();
+
+        return response()->json(["education" => $education]);
     }
 }
