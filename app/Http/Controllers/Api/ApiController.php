@@ -88,9 +88,10 @@ class ApiController extends Controller
         $validator = Validator::make($request->all(), [
             'position_title'       => 'required',
             'company_name'         => 'required',
+            'industry_id'          => 'required',
             'start_date'           => 'required',
-            'end_date'             => 'required',
             'position_level'       => 'required',
+            'job_type'             => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -98,12 +99,14 @@ class ApiController extends Controller
                 return response()->json($validator->errors()->first('position_title'), 400);
             if($validator->errors()->has('company_name'))
                 return response()->json($validator->errors()->first('company_name'), 400);
+            if($validator->errors()->has('industry_id'))
+                return response()->json($validator->errors()->first('industry_id'), 400);
             if($validator->errors()->has('start_date'))
                 return response()->json($validator->errors()->first('start_date'), 400);
-            if($validator->errors()->has('end_date'))
-                return response()->json($validator->errors()->first('end_date'), 400);
             if($validator->errors()->has('position_level'))
-                return response()->json($validator->errors()->first('position_level'), 400);           
+                return response()->json($validator->errors()->first('position_level'), 400);  
+                if($validator->errors()->has('job_type'))
+                return response()->json($validator->errors()->first('job_type'), 400);         
         }
 
         $experience = new User_Experience;
@@ -116,6 +119,48 @@ class ApiController extends Controller
         $experience->position_level     = $request->position_level;
         $experience->save();
 
+    }
+
+    public function editUserexperience(Request $request,$id)
+    {
+        $validator = Validator::make($request->all(), [
+            'position_title'       => 'required',
+            'company_name'         => 'required',
+            'industry_id'          => 'required',
+            'start_date'           => 'required',
+            'position_level'       => 'required',
+            'job_type'             => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            if($validator->errors()->has('position_title'))
+                return response()->json($validator->errors()->first('position_title'), 400);
+            if($validator->errors()->has('company_name'))
+                return response()->json($validator->errors()->first('company_name'), 400);
+            if($validator->errors()->has('industry_id'))
+                return response()->json($validator->errors()->first('industry_id'), 400);
+            if($validator->errors()->has('start_date'))
+                return response()->json($validator->errors()->first('start_date'), 400);
+            if($validator->errors()->has('position_level'))
+                return response()->json($validator->errors()->first('position_level'), 400);  
+            if($validator->errors()->has('job_type'))
+                return response()->json($validator->errors()->first('job_type'), 400);         
+        }
+
+        $experience = User_Experience::find($id);
+        if ($experience) {
+            $experience->user_id            = $request->user_id;
+            $experience->position_title     = $request->position_title;
+            $experience->company_name       = $request->company_name;
+            $experience->industry_id        = $request->industry_id;
+            $experience->start_date         = $request->start_date;
+            $experience->end_date           = $request->end_date;
+            $experience->position_level     = $request->position_level;
+            $experience->update();
+
+            return response()->json(["user_experience" => $experience]);
+        }
+        
     }
 
     public function getIndustries()
@@ -149,15 +194,21 @@ class ApiController extends Controller
 
     }
 
-    public function getSavedjobs($user_id)
+    public function getSavedjobs($user_id,$status)
     {
-        $saved_jobs = Saved_Job::with('job')->where('user_id',$user_id)->get();
+        if($status == "save"){
+            $saved_jobs = Saved_Job::with('job')->where('user_id',$user_id)->where('status',$status)->get();
+        }
+        else{
+            $saved_jobs = Saved_Job::with('job')->where('user_id',$user_id)->where('status',$status)->get();
+        }
+        
         return response()->json(['saved_jobs'=>$saved_jobs]);
     }
 
     public function postSavedjobs(Request $request)
     {
-        $jobs = Saved_Job::where('user_id',$request->user_id)->where('job_id',$request->job_id)->first();
+        $jobs = Saved_Job::where('user_id',$request->user_id)->where('job_id',$request->job_id)->where('status',$request->status)->first();
         if ($jobs) {
             $jobs->delete();
         }
@@ -165,6 +216,7 @@ class ApiController extends Controller
             $saved_jobs = new Saved_Job;
             $saved_jobs->user_id = $request->user_id;
             $saved_jobs->job_id  = $request->job_id;
+            $saved_jobs->status  = $request->status;
             $saved_jobs->save();
         }
         
@@ -173,10 +225,12 @@ class ApiController extends Controller
     }
 
     public function getSavedjobscount($user_id){
-        $saved_jobs = Saved_Job::where('user_id',$user_id)->get();
-        return response()->json(['count'=>['saved_jobs'=>count($saved_jobs),"apply_jobs"=>0]]);
+        $saved_jobs = Saved_Job::where('user_id',$user_id)->where('status','save')->get();
+        $apply_jobs = Saved_Job::where('user_id',$user_id)->where('status','apply')->get();
+        return response()->json(['count'=>['saved_jobs'=>count($saved_jobs),"apply_jobs"=>count($apply_jobs)]]);
 
     }
+
 
     public function getQualification()
     {
@@ -191,7 +245,7 @@ class ApiController extends Controller
         return response()->json(["educations"=>$education]);
     }
 
-    public function postEducation()
+    public function postEducation(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'user_id'           => 'required',

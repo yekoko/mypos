@@ -26,11 +26,12 @@ Route::group(['prefix' => 'v1'], function(){
 	Route::post('login','Admin\AdminController@postLogin');
 	Route::post('user_experience','Api\ApiController@postUserexperience');
 	Route::get('user_experience/{id}','Api\ApiController@getUserexperience');
+	Route::patch('user_experience/{id}','Api\ApiController@editUserexperience');
 	Route::get('industries','Api\ApiController@getIndustries');
 	Route::post('user/{id}','Api\ApiController@editUser');
-	Route::get('save_jobs/{id}','Api\ApiController@getSavedjobs');
+	Route::get('save_jobs/{id}/{status}','Api\ApiController@getSavedjobs');
 	Route::post('save_jobs','Api\ApiController@postSavedjobs');
-	Route::get('save_jobs_count/{id}','Api\ApiController@getSavedjobscount');
+	Route::get('count/{id}','Api\ApiController@getSavedjobscount');
 	Route::get('qualifications',"Api\ApiController@getQualification");
 	Route::get('educations/{id}','Api\ApiController@getEducation');
 	Route::post('educations','Api\ApiController@postEducation');
