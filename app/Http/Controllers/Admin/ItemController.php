@@ -69,7 +69,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -80,7 +80,8 @@ class ItemController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = Item::find($id);
+        return view('admin.item.edit',compact('item'));
     }
 
     /**
@@ -92,7 +93,12 @@ class ItemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $item = Item::find($id);
+        $item->name = $request->name;
+        $item->price = $request->price;
+        $item->quantity = $request->quantity;
+        $item->update();
+        return redirect()->route('item.index');
     }
 
     /**
@@ -103,6 +109,9 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $item = Item::find($id);
+        $item->delete();
+      
     }
 }

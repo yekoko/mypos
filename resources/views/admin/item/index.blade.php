@@ -66,18 +66,38 @@ Item
                         @endforeach
                     </tbody>
                 </table>
-                 
+                 {!! $items->render() !!}
                 </div>
             
             </div>
         </div>
     </div>
 </section>
+
 @stop
+
 @section('footer_scripts')
 	
     <script type="text/javascript" src="{{ asset('assets/vendors/wizard/jquery-steps/js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('assets/vendors/wizard/jquery-steps/js/jquery.steps.js') }}"></script>
     <script src="{{ asset('assets/vendors/jasny-bootstrap/js/jasny-bootstrap.js') }}"></script>
     <script src="{{ asset('assets/js/pages/form_wizard.js') }}"></script>
+    <script type="text/javascript">
+    $(function(){
+        
+    });
+    function deleteUser(id) {
+        if (confirm('Are you sure want to delete?')) {
+        $.ajax({
+            type: "DELETE",
+            url: '/admin/item/' + id, //resource
+            success: function() {
+                    window.location = 'item';
+                 
+            }
+        });
+    }
+}
+</script>
+</script>
 @stop
