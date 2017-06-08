@@ -33,66 +33,66 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
 
-        //Job
+        // //Job
 
-        Job::created(function ($item) {
-            Cache::tags('jobs')->flush();
-        });
+        // Job::created(function ($item) {
+        //     Cache::tags('jobs')->flush();
+        // });
 
-        Job::updated(function ($item) {
-            Cache::tags('jobs')->flush();
-        });
+        // Job::updated(function ($item) {
+        //     Cache::tags('jobs')->flush();
+        // });
 
-        Job::deleted(function ($item) {
-            Cache::tags('jobs')->flush();
-        });
-
-
-
-        // Company
-
-        Company::created(function ($item) {
-            Cache::tags('companies')->flush();
-        });
-
-        Company::updated(function ($item) {
-            Cache::tags('companies')->flush();
-        });
-
-        Company::deleted(function ($item) {
-            Cache::tags('companies')->flush();
-        });
+        // Job::deleted(function ($item) {
+        //     Cache::tags('jobs')->flush();
+        // });
 
 
 
-        // Category
+        // // Company
 
-        Category::created(function ($item) {
-            Cache::tags('categories')->flush();
-        });
+        // Company::created(function ($item) {
+        //     Cache::tags('companies')->flush();
+        // });
 
-        Category::updated(function ($item) {
-            Cache::tags('categories')->flush();
-        });
+        // Company::updated(function ($item) {
+        //     Cache::tags('companies')->flush();
+        // });
 
-        Category::deleted(function ($item) {
-            Cache::tags('categories')->flush();
-        });
+        // Company::deleted(function ($item) {
+        //     Cache::tags('companies')->flush();
+        // });
 
 
 
-        //Experience
+        // // Category
 
-        Experience::created(function ($item) {
-            Cache::tags('experiences')->flush();
-        });
+        // Category::created(function ($item) {
+        //     Cache::tags('categories')->flush();
+        // });
 
-        Experience::updated(function ($item) {
-            Cache::tags('experiences')->flush();
-        });
+        // Category::updated(function ($item) {
+        //     Cache::tags('categories')->flush();
+        // });
 
-        Experience::deleted(function ($item) {
-            Cache::tags('experiences')->flush();
-        });
+        // Category::deleted(function ($item) {
+        //     Cache::tags('categories')->flush();
+        // });
+
+
+
+        // //Experience
+
+        // Experience::created(function ($item) {
+        //     Cache::tags('experiences')->flush();
+        // });
+
+        // Experience::updated(function ($item) {
+        //     Cache::tags('experiences')->flush();
+        // });
+
+        // Experience::deleted(function ($item) {
+        //     Cache::tags('experiences')->flush();
+        // });
     }
 }

@@ -70,15 +70,16 @@
                                 <p class="login button">
                                     <input type="submit" value="Login" class="btn btn-success" />
                                 </p>
-                                <p class="change_link">
+                                
+                            </form>
+                            <p class="change_link">
                                     <a href="#toforgot">
                                         <button type="button" class="btn btn-responsive botton-alignment btn-warning btn-sm">Forgot password</button>
                                     </a>
-                                    <!-- <a href="#toregister">
+                                    <a href="#toregister">
                                         <button type="button" class="btn btn-responsive botton-alignment btn-success btn-sm" style="float:right;">Sign up</button>
-                                    </a> -->
-                                </p>
-                            </form>
+                                    </a>
+                            </p>
                         </div>
                         <div id="register" class="animate form">
                             <form action="{{ route('register') }}" autocomplete="on" method="post" role="form">

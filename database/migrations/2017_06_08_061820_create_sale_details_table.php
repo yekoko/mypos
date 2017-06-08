@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExperiencesTable extends Migration
+class CreateSaleDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +13,12 @@ class CreateExperiencesTable extends Migration
      */
     public function up()
     {
-        Schema::create('experiences', function (Blueprint $table) {
+        Schema::create('sale_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->integer('sale_id');
+            $table->integer('item_id');
+            $table->integer('quantity');
+            $table->integer('price');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreateExperiencesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('experiences');
+        Schema::dropIfExists('sale_details');
     }
 }

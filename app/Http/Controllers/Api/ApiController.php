@@ -197,7 +197,11 @@ class ApiController extends Controller
     public function getSavedjobs($user_id,$status)
     {
         if($status == "save"){
-            $saved_jobs = Saved_Job::with('job')->where('user_id',$user_id)->where('status',$status)->get();
+            $saved = Saved_Job::where('user_id',$user_id)->where('status',$status)->get();
+            foreach ($saved as $key => $value) {
+                $saved_jobs[$key] = Job::with('category','experience','company')->find($value->job_id);
+            }
+            
         }
         else{
             $saved_jobs = Saved_Job::with('job')->where('user_id',$user_id)->where('status',$status)->get();
@@ -227,7 +231,7 @@ class ApiController extends Controller
     public function getSavedjobscount($user_id){
         $saved_jobs = Saved_Job::where('user_id',$user_id)->where('status','save')->get();
         $apply_jobs = Saved_Job::where('user_id',$user_id)->where('status','apply')->get();
-        return response()->json(['count'=>['saved_jobs'=>count($saved_jobs),"apply_jobs"=>count($apply_jobs)]]);
+        return response()->json(['count'=>[['saved_jobs'=>count($saved_jobs),"apply_jobs"=>count($apply_jobs)]]]);
 
     }
 

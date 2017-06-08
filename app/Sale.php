@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Language extends Model
+class Sale extends Model
 {
-    //
+    protected $table = "sales";
+    
 }

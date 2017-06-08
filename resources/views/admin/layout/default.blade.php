@@ -165,144 +165,9 @@
                             </a>
                         </li>
                         @if($user = Sentinel::getUser())
+                    
                         @if($user->inRole('admin'))
-                        <li {!! (Request::is('admin/category') || Request::is('admin/category/*') ? 'class="active"' : '') !!}>
-                            <a href="#">
-                                <i class="livicon" data-name="users" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
-                                <span class="title">Category</span>
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li {!! (Request::is('admin/category') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/category') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Category
-                                    </a>
-                                </li>
-                                <li {!! (Request::is('admin/category/create') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/category/create') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Add New Category
-                                    </a>
-                                </li>
-                                 
-                            </ul>
-                        </li>
-                         <li {!! (Request::is('admin/company') || Request::is('admin/company/*') ? 'class="active"' : '') !!}>
-                            <a href="#">
-                                <i class="livicon" data-name="users" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
-                                <span class="title">Company</span>
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li {!! (Request::is('admin/company') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/company') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Company
-                                    </a>
-                                </li>
-                                <li {!! (Request::is('admin/company/create') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/company/create') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Add New Company
-                                    </a>
-                                </li>
-                                 
-                            </ul>
-                        </li>
-                        <li {!! (Request::is('admin/experience') || Request::is('admin/experience/*') ? 'class="active"' : '') !!}>
-                            <a href="#">
-                                <i class="livicon" data-name="users" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
-                                <span class="title">Experience</span>
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li {!! (Request::is('admin/experience') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/experience') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Experience
-                                    </a>
-                                </li>
-                                <li {!! (Request::is('admin/experience/create') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/experience/create') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Add New Experience
-                                    </a>
-                                </li>
-                                 
-                            </ul>
-                        </li>
-                        <li {!! (Request::is('admin/industry') || Request::is('admin/industry/*') ? 'class="active"' : '') !!}>
-                            <a href="#">
-                                <i class="livicon" data-name="users" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
-                                <span class="title">Industry</span>
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li {!! (Request::is('admin/industry') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/industry') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Industry
-                                    </a>
-                                </li>
-                                <li {!! (Request::is('admin/industry/create') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/industry/create') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Add New Industry
-                                    </a>
-                                </li>
-                                 
-                            </ul>
-                        </li>
-                        @endif
-                        @if($user->inRole('admin') || $user->inRole('company'))
-                        <li {!! (Request::is('admin/job') || Request::is('admin/job/*') ? 'class="active"' : '') !!}>
-                            <a href="#">
-                                <i class="livicon" data-name="users" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
-                                <span class="title">Job</span>
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li {!! (Request::is('admin/job') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/job') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Job
-                                    </a>
-                                </li>
-                                <li {!! (Request::is('admin/job/create') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/job/create') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Add New Job
-                                    </a>
-                                </li>
-                                 
-                            </ul>
-                        </li>
-                        @endif
-                        @if($user->inRole('admin'))
-                        <li {!! (Request::is('admin/language') || Request::is('admin/language/*') ? 'class="active"' : '') !!}>
-                            <a href="#">
-                                <i class="livicon" data-name="users" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
-                                <span class="title">Language</span>
-                                <span class="fa arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li {!! (Request::is('admin/language') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/language') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        language
-                                    </a>
-                                </li>
-                                <li {!! (Request::is('admin/language/create') ? 'class="active"' : '') !!}>
-                                    <a href="{!! URL::to('admin/language/create') !!}">
-                                        <i class="fa fa-angle-double-right"></i>
-                                        Add New language
-                                    </a>
-                                </li>
-                                 
-                            </ul>
-                        </li>
-                        
+                    
                         <li {!! (Request::is('admin/user') || Request::is('admin/user/*') ? 'class="active"' : '') !!}>
                             <a href="#">
                                 <i class="livicon" data-name="users" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
@@ -346,6 +211,36 @@
                                 </li>
                                  
                             </ul>
+                        </li>
+                        
+                        <li {!! (Request::is('admin/item') || Request::is('admin/item/*') ? 'class="active"' : '') !!}>
+                            <a href="#">
+                                <i class="livicon" data-name="columns" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
+                                <span class="title">Item</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li {!! (Request::is('admin/item') ? 'class="active"' : '') !!}>
+                                    <a href="{!! URL::to('admin/item') !!}">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Item List
+                                    </a>
+                                </li>
+                                <li {!! (Request::is('admin/item/create') ? 'class="active"' : '') !!}>
+                                    <a href="{!! URL::to('admin/item/create') !!}">
+                                        <i class="fa fa-angle-double-right"></i>
+                                        Add New Item
+                                    </a>
+                                </li>
+                                 
+                            </ul>
+                        </li>
+
+                        <li {!! (Request::is('admin/sale') || Request::is('admin/sale/*') ? 'class="active"' : '') !!}>
+                            <a href="{!! URL::to('admin/sale') !!}">
+                                <i class="livicon" data-name="columns" data-size="18" data-c="#6CC66C" data-hc="#6CC66C" data-loop="true"></i>
+                                <span class="title">Sale</span> 
+                            </a>
                         </li>
                         @endif
                         @endif

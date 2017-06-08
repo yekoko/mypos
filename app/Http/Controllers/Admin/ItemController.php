@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Experience;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Item;
 use Validator,ErrorException;
 
-class ExperienceController extends Controller
+class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,8 @@ class ExperienceController extends Controller
      */
     public function index()
     {
-        $experiences = Experience::paginate();
-        return view('admin.experiences.index',compact('experiences'));
+        $items = Item::paginate(10);
+        return view('admin.item.index',compact('items'));
     }
 
     /**
@@ -28,7 +27,7 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        return view('admin.experiences.create');
+        return view('admin.item.create');
     }
 
     /**
@@ -40,24 +39,26 @@ class ExperienceController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'              => 'required|unique:experiences,name',
-             
+            'name'              => 'required',
+            'price'             => 'required',
+            'quantity'          => 'required',
         ]);
+
         if ($validator->fails()) {
             if ($request->route()->getPrefix() == "/admin") {
                 return redirect()->back()
                         ->withErrors($validator)
                         ->withInput();
-            }
-            if($validator->errors()->has('name'))
-                return response()->json($validator->errors()->first('name'), 400);          
+            }                     
         }
 
-        $experience = new Experience;
-        $experience->name = $request->name;
-        $experience->save();
+        $item = new Item();
+        $item->name = $request->name;
+        $item->price = $request->price;
+        $item->quantity = $request->quantity;
+        $item->save();
 
-        return redirect()->route('experience.index');
+        return redirect()->route('item.index');
     }
 
     /**

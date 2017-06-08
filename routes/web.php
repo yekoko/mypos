@@ -12,8 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+     return redirect()->route('login');
+	//return view('sale');
 });
+ 
+Route::post('searchitem',['as' => 'searchitem','uses' => 'Admin\SaleController@searchitem']);
+Route::get('searchitembyid/{id}',['as' => 'searchitembyid','uses' => 'Admin\SaleController@searchitembyid']);
+Route::get('cartitem',['as' => 'cartitem','uses' => 'Admin\SaleController@cartitem']);
+Route::put('editqty/{id}',['as' => 'editqty','uses' => 'Admin\SaleController@editqty']);
+Route::delete('deletesale',['as' => 'deletesale','uses' => 'Admin\SaleController@deletesale']);
+Route::delete('deletesalebyid/{id}',['as' => 'deletesalebyid','uses' => 'Admin\SaleController@deletesalebyid']);
+
 
 Route::group(['prefix' => 'admin'], function () {
 	 
@@ -29,6 +38,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('forgot-password-confirm/{userId}/{passwordResetCode}',['as' => 'forgot-password-confirm', 'uses' => 'Admin\AdminController@getForgotpasswordconfirm']);
     Route::post('forgot-password-confirm/{userId}/{passwordResetCode}','Admin\AdminController@postForgotpasswordconfirm');
+
      
 	//Route::get('',['as' => 'dashboard', 'uses' =>'Admin\HomeController@getIndex']);
 	
@@ -36,14 +46,13 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::group(['middleware' => ['sentinel.admin']], function () {
 		Route::get('/dashboard', ['as' => 'dashboard','uses' => 'Admin\HomeController@getIndex']);
 		Route::group(['middleware' => ['role.admin']], function () {
-			/* for user */
-			Route::resource('language','Admin\LanguageController');
+
 			Route::resource('user','Admin\UserController');
-			Route::resource('role','Admin\RoleController');
-			Route::resource('category','Admin\CategoryController');
-			Route::resource('experience','Admin\ExperienceController');
-			Route::resource('company','Admin\CompanyController');
-			Route::resource('industry','Admin\IndustryController');
+			Route::resource('role','Admin\RoleController'); 
+			Route::get('sale',['as' => 'sale','uses' => 'Admin\SaleController@sale']);
+			Route::resource('item','Admin\ItemController');
+			Route::post('completesale',['as' => 'completesale','uses' => 'Admin\SaleController@completesale']);
+
 		});
 
 		 
