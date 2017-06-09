@@ -24,70 +24,70 @@ Sale Panel
         <li class="active">Sale</li>
     </ol>
 </section>
-<div class="container-fluid" id="printableArea">
-     <div class="row">
-        <div class="col-md-12">
+<div class="container-fluid" >
+     <div class="row" id="printableArea">
+        <div class="col-xs-12">
           <h4 style="text-align:center;">My Own Shop</h4>
           <h4 style="text-align:center;">My Own Shop</h4>
           <h4 style="text-align:center;">My Own Shop</h4>
         </div>
        
-        <div class="col-md-12" style="border-bottom:1px solid #333;">
-          <span style="width:49%;font-size:20px;">Sales Receipt</span>
-          <span style="width:49%;font-size:20px;float:right;text-align:right;"><?php echo(date("d/m/Y h:i:sa")); ?></span>
+        <div class="col-xs-12" style="border-bottom:1px solid #333;">
+          <span style="width:49%;font-size:12px;">Sales Receipt</span>
+          <span style="width:49%;font-size:12px;float:right;text-align:right;"><?php echo(date("d/m/Y")); ?></span>
            
         </div>
-          <div class="col-md-12" style="text-align:center;border-bottom:1px solid #333;">
-            <span style="width:49%;font-size:20px;text-align:right;">Customer Name :</span>
-            <span style="width:49%;font-size:20px;text-align:left;">{{ $customer }}</span>
+          <div class="col-xs-12" style="text-align:center;border-bottom:1px solid #333;">
+            <span style="width:49%;font-size:12px;text-align:right;">Customer Name :</span>
+            <span style="width:49%;font-size:12px;text-align:left;">{{ $customer }}</span>
           </div>
           
          <?php $qty = 0; ?>
-        <div class="col-md-12">
-          <div style="float:left;width:25%;">
-            <h4 style="text-align:left;">Name</h4>
+        <div class="col-xs-12">
+          <div style="float:left;width:40%;text-align:left;">
+            <span style="font-size:12px;">Name</span>
           </div>
-          <div style="float:left;width:25%;">
-            <h4 style="text-align:left;">Price</h4>
+          <div style="float:left;width:20%;text-align:left;">
+            <span style="font-size:12px;">Price</span>
           </div>
-          <div style="float:left;width:25%;">
-            <h4 style="text-align:left;">Quantity</h4>
+          <div style="float:left;width:10%;text-align:left;">
+            <span style="font-size:12px;">Qty</span>
           </div>
-          <div style="float:left;width:25%;">
-            <h4 style="text-align:left;">Total</h4>
+          <div style="float:left;width:30%;text-align:right;">
+            <span style="font-size:12px;">Total</span>
           </div>
         </div>
         <div class="col-xs-12" style="border-bottom:1px solid #333;">
         @foreach($shoppingcart as $value)
-          <div style="float:left;width:25%;">
-            <h4 style="text-align:left;">{{$value->name}}</h4>
+          <div style="float:left;width:40%;text-align:left;">
+            <span style="font-size:12px;">{{$value->name}}</span>
           </div>
-          <div style="float:left;width:25%;">
-            <h4 style="text-align:left;">{{$value->price}}</h4>
+          <div style="float:left;width:20%;text-align:left;">
+            <span style="font-size:12px;">{{$value->price}}</span>
           </div>
-          <div style="float:left;width:25%;">
-            <h4 style="text-align:left;">{{$value->qty}}</h4>
+          <div style="float:left;width:10%;text-align:left;">
+            <span style="font-size:12px;">{{$value->qty}}</span>
           </div>
-          <div style="float:left;width:25%;">
-            <h4 style="text-align:left;">{{$value->subtotal}}</h4>
+          <div style="float:left;width:30%;text-align:right;">
+            <span style="font-size:12px;">{{$value->subtotal}}</span>
           </div>
           <?php $qty += $value->qty; ?>
         @endforeach
         </div>
         <div class="col-md-12">
-          <div style="float:left;width:56%;">
-            <h4 style="text-align:right;">Sub Total</h4>
+          <div style="float:left;width:56%;text-align:right;">
+            <span style="font-size:12px;">Sub Total</span>
           </div>
-          <div style="float:left;width:43%;">
-            <h4 style="text-align:center;">{{$subtotal}}</h4>
+          <div style="float:left;width:43%;text-align:center;">
+            <span style="font-size:12px;">{{$subtotal}}</span>
           </div>
         </div>
         <div class="col-md-12">
-          <div style="float:left;width:56%;">
-            <h4 style="text-align:right;">Number of Items</h4>
+          <div style="float:left;width:56%;text-align:right;">
+            <span style="font-size:12px;">Number of Items</span>
           </div>
-          <div style="float:left;width:43%;">
-            <h4 style="text-align:center;">{{ $qty }}</h4>
+          <div style="float:left;width:43%;text-align:center;">
+            <span style="font-size:12px;">{{ $qty }}</span>
           </div>
         </div>
         <div class="col-md-12">

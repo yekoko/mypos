@@ -51,7 +51,7 @@ class SaleController extends Controller
         }
         $subtotal = intval(str_replace(",","",Cart::subtotal()));
         $customer = $request->customer;
-        Cart::destroy();
+        //Cart::destroy();
         return view('admin.complete',compact('shoppingcart','subtotal','customer'));
     }
 
